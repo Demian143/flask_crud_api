@@ -4,24 +4,29 @@ import os
 
 # app and db config
 app = Flask(__name__)
-app.config['SQLALCHMY_DATABASE_URI'] = os.environ['SQLALCHMY_DATABASE_URI']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
 db = SQLAlchemy(app)
 
 # example of how to make models
+
+
 class User(db.model):
     pass
 
 # api endpoints example
-@app.route('/', methods=['GET', 'POST','PUT','DELETE'])
+
+
+@app.route('/', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def api():
     if request.methd == 'GET':
         pass
     if request.method == 'POST':
         pass
-    if request.methd == 'PUT':
+    if request.method == 'PUT':
         pass
-    if request.methd == 'DELETE':
+    if request.method == 'DELETE':
         pass
+
 
 if __name__ == '__main__':
     app.run(debug=True)
