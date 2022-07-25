@@ -1,24 +1,20 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 import os
 
-# app and db config
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
 
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
 
-# db stuff
-db = SQLAlchemy(app)
+    from api.api import crud_api
+    app.register_blueprint(crud_api)
 
+    # it's no need to db.create_all(), it does by itself
+    from db.models import db
+    db.init_app(app)
 
-class User(db.Model):
-    __tablename__ = 'user'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60))
-    email = db.Column(db.String(20))
-    phone_number = db.Column(db.Integer)
+    return app
 
 
 if __name__ == '__main__':
-    db.create_all()
-    app.run(debug=True)
+    create_app().run()
