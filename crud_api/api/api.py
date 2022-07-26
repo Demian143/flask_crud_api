@@ -1,33 +1,19 @@
-from flask import Blueprint
-from flask import request
-from db.models import User, db
+from flask import Blueprint, request
+from .methods import get, post, delete
 
 crud_api = Blueprint('crud_api', __name__)
 
 
-@crud_api.route('/<kwargs>', methods=['GET', 'POST', 'DELETE'])
-def operations(**kwargs):
+@crud_api.route('/<args>', methods=['GET', 'POST', 'DELETE'])
+def operations():
     if request.method == 'GET':
-        get(kwargs['id'])
+        return get(request.args.get('id'))
 
     if request.method == 'POST':
-        post(kwargs['name'], kwargs['email'])
+        name = request.args.get('name')
+        email = request.args.get('email')
+        return post(name, email)
 
     if request.method == 'DELETE':
-        delete(kwargs['id'])
-
-
-def get(id: int):
-    _user = User.query.filter_by(id=id)
-    return _user
-
-
-def post(name, email):
-    new_user = User(name=name, email=email)
-    db.session.add(new_user)
-    db.session.commit()
-
-
-def delete(id: int):
-    User.query.filter_by(id=id).delete()
-    db.session.commit()
+        id = request.args.get('id')
+        return delete(id)
