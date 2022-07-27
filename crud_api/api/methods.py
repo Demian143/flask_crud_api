@@ -3,9 +3,9 @@ from db.models import User, db
 
 
 def get(id: int) -> Response:
-    user = User.query.filter_by(id=id)
+    user = User.query.filter_by(id=id).first()
     if user:
-        return Response(status=200)
+        return Response('user found', status=200)
     else:
         return Response("user don't exists", status=400)
 

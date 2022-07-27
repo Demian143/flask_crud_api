@@ -1,5 +1,3 @@
-# exporting needed variables
-source .env
 # if there's no image
 docker pull postgres
 
