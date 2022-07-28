@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_migrate import Migrate
 import os
 
 
@@ -13,9 +12,6 @@ def create_app():
 
     with app.app_context():
         db.create_all()
-
-    migrate = Migrate(app, db)
-    migrate.init_app(app, db)
 
     from api.api import crud_api
     app.register_blueprint(crud_api)
