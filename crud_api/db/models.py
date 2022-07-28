@@ -8,7 +8,7 @@ class User(db.Model):
     __tablename__ = 'User'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60))
-    email = db.Column(db.String(20), unique=True)
+    email = db.Column(db.String(60), unique=True)
 
     def __repr__(self) -> str:
         return '<User: %r>' % self.name

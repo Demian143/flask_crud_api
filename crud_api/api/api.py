@@ -7,8 +7,11 @@ crud_api = Blueprint('crud_api', __name__)
 @crud_api.route('/crud', methods=['GET', 'POST', 'DELETE'])
 def operations():
     if request.method == 'GET':
-        id = request.args.get('id', type=int)
-        return get(id)
+        not_none = request.args.get('id')
+        if not_none:
+            id = request.args.get('id', type=int)
+            return get(id)
+        return {'foo': 'bar'}
 
     if request.method == 'POST':
         name = request.args.get('name', type=str)
@@ -19,3 +22,5 @@ def operations():
     if request.method == 'DELETE':
         id = request.args.get('id', type=int)
         return delete(id)
+
+    return {'foo': 'bar'}

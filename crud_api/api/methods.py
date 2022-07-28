@@ -4,10 +4,11 @@ from db.models import User, db
 
 def get(id: int) -> Response:
     user = User.query.filter_by(id=id).first()
-    if user:
-        return Response('user found', status=200)
-    else:
-        return Response("user don't exists", status=400)
+
+    if user is not None:
+        return Response(f'{user.id, user.name, user.email}', status=200)
+
+    return Response("user don't exists", status=400)
 
 
 def post(name: str, email: str) -> Response:
