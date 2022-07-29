@@ -4,7 +4,7 @@ import os
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+    config(app)
 
     # it's no need to db.create_all(), it does by itself
     from db.models import db
@@ -17,6 +17,11 @@ def create_app():
     app.register_blueprint(crud_api)
 
     return app
+
+
+def config(app):
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
 
 
 if __name__ == '__main__':

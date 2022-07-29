@@ -12,8 +12,8 @@ def get(id: int) -> Response:
 
 
 def post(name: str, email: str) -> Response:
-    email = User.query.filter_by(email=email).first()
-    if email:
+    exists = User.query.filter_by(email=email).first()
+    if exists:
         return Response("user already exists", status=400)
     else:
         new_user = User(name=name, email=email)
