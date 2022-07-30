@@ -1,5 +1,5 @@
 
-from crud_api.index import create_app
+from crud_api.app import create_app
 import requests
 
 

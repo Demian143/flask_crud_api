@@ -6,7 +6,6 @@ def create_app():
     app = Flask(__name__)
     config(app)
 
-    # it's no need to db.create_all(), it does by itself
     from db.models import db
     db.init_app(app)
 
