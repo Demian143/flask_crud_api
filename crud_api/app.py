@@ -8,9 +8,7 @@ def create_app():
 
     from db.models import db
     db.init_app(app)
-
-    with app.app_context():
-        db.create_all()
+    db.create_all(app=app)
 
     from api.api import crud_api
     app.register_blueprint(crud_api)
