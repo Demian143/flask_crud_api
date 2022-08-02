@@ -1,5 +1,5 @@
 from flask import jsonify, Response
-from db.models import User, db
+from crud_api.db.models import User, db
 
 
 class GetUser:

@@ -2,15 +2,15 @@ from flask import Flask
 import os
 
 
-def create_app():
+def create_app() -> Flask:
     app = Flask(__name__)
     config(app)
 
-    from db.models import db
+    from crud_api.db.models import db
     db.init_app(app)
     db.create_all(app=app)
 
-    from api.api import crud_api
+    from crud_api.api.api import crud_api
     app.register_blueprint(crud_api)
 
     return app
