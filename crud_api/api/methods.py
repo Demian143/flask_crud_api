@@ -2,15 +2,25 @@ from flask import jsonify, Response
 from db.models import User, db
 
 
-def get(id: int) -> Response:
-    user = User.query.filter_by(id=id).first()
+class GetUser:
+    def get_by_id(self, id: int) -> Response:
+        user = User.query.filter_by(id=id).first()
+        if user:
+            return self.serialize_user(user)
 
-    if user:
+        return jsonify(message="user don't exists", status=400)
+
+    def get_by_email(self, email: str) -> Response:
+        user = User.query.filter_by(email=email).first()
+        if user:
+            return self.serialize_user(user)
+
+        return jsonify(message="user don't exists", status=400)
+
+    def serialize_user(self, user) -> Response:
         return jsonify(id=user.id,
                        username=user.name,
                        email=user.email)
-
-    return jsonify(message="user don't exists", status=400)
 
 
 def post(name: str, email: str) -> Response:
